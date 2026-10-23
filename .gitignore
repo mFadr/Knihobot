@@ -1,0 +1,27 @@
+# Rasa specifické složky a soubory
+models/
+.rasa/
+*.db
+events.db
+rasa.db
+
+# Python cache a zkompilované soubory
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtuální prostředí (pro jistotu, tvé je sice o úroveň výš, ale je to dobrý zvyk)
+rasa_projekt/
+venv/
+env/
+.venv/
+.conda/
+
+# macOS specifické skryté soubory (jelikož používáš Mac)
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+.idea/

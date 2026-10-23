@@ -1,0 +1,117 @@
+version: "3.1"
+
+intents:
+  - pozdrav
+  - hledam_knihu
+  - dotaz_na_autora
+  - dostupnost
+  - cena
+  - souhlas
+  - nesouhlas
+  - rozlouceni
+  - nlu_fallback
+
+entities:
+  - zanr
+  - typ_vazby
+  - jazyk_knihy
+  - autor
+  - vydavatelstvo
+
+forms:
+  kniha_form:
+    required_slots:
+      - zanr
+
+slots:
+  zanr:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: zanr
+
+  typ_vazby:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: typ_vazby
+
+  jazyk_knihy:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: jazyk_knihy
+
+  autor:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: autor
+
+  vydavatelstvo:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: vydavatelstvo
+
+responses:
+  utter_pozdrav:
+    - text: "Dobrý den! Jsem Váš virtuální knihkupec. S čím Vám mohu dnes pomoci?"
+    - text: "Vítejte! Jak Vám mohu dnes pomoci s výběrem knihy?"
+    - text: "Dobrý den! Rádi Vám pomůžeme najít tu pravou knihu."
+
+  utter_nabidka_pomoci:
+    - text: "Můžete mi napsat, co přesně sháníte, nebo si vybrat z možností níže:"
+      buttons:
+        - title: "Chci doporučit knihu"
+          payload: "/hledam_knihu"
+        - title: "Zajímá mě dostupnost"
+          payload: "/dostupnost"
+        - title: "Jaké jsou ceny?"
+          payload: "/cena"
+
+  utter_ask_zanr:
+    - text: "Dobře, podíváme se na to! Jaký žánr máte nejraději?"
+      buttons:
+        - title: "Detektivka"
+          payload: '/hledam_knihu{{"zanr": "detektivku"}}'
+        - title: "Sci-fi"
+          payload: '/hledam_knihu{{"zanr": "sci-fi"}}'
+        - title: "Fantasy"
+          payload: '/hledam_knihu{{"zanr": "fantasy"}}'
+
+  utter_doporuceni_knihy:
+    - text: "Tady jsou naše aktuální bestsellery, které by se Vám mohly líbit:\n1. Duna (Frank Herbert)\n2. Spasitel (Andy Weir)\n3. Muž, který hledal svůj stín (David Lagercrantz)\nPřejete si zjistit cenu nebo dostupnost u některého z těchto titulů?"
+    - text: "Z naší nabídky bych Vám doporučil:\n1. Duna (Frank Herbert)\n2. Spasitel (Andy Weir)\n3. Muž, který hledal svůj stín (David Lagercrantz)\nChcete vědět více o ceně nebo dostupnosti?"
+
+  utter_odpovez_autor:
+    - text: "Tento autor patří mezi oblíbené! Máme od něj skladem hned několik titulů, stačí si vybrat."
+    - text: "Skvělý výběr! Od tohoto autora máme aktuálně dostupných několik titulů."
+
+  utter_odpovez_dostupnost:
+    - text: "Většinu knih z naší nabídky máme skladem a odesíláme do 24 hodin."
+    - text: "Naše skladové zásoby jsou průběžně doplňovány. Standardně odesíláme do 24 hodin od objednání."
+
+  utter_odpovez_cena:
+    - text: "Ceny se liší podle typu vazby a vydání. Obecně platí, že e-knihy a audioknihy jsou levnější než tištěné verze."
+    - text: "Záleží na formátu — e-knihy a audioknihy vychází výhodněji, tištěné verze se liší podle vazby a vydání."
+
+  utter_default:
+    - text: "Omlouvám se, ale tomuto jsem úplně neporozuměl. Zkuste to prosím napsat trochu jinak, nebo si vyberte z naší nabídky:"
+      buttons:
+        - title: "Chci doporučit knihu"
+          payload: '/hledam_knihu'
+        - title: "Zajímá mě dostupnost"
+          payload: '/dostupnost'
+
+  utter_rozumim_nevadi:
+    - text: "V pořádku. Kdybyste cokoliv potřeboval, jsem tu pro Vás."
+    - text: "Rozumím, žádný problém. Ozvěte se, kdykoliv budete potřebovat."
+
+  utter_rozlouceni:
+    - text: "Děkuji za návštěvu našeho virtuálního knihkupectví. Mějte se krásně a na shledanou!"
+    - text: "Na shledanou! Těšíme se na Vaši příští návštěvu."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

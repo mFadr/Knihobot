@@ -1,0 +1,331 @@
+version: "3.1"
+
+# ============================================================
+# TESTY KONVERZAČNÍCH TOKŮ (End-to-End Stories)
+# Spuštění: rasa test core --stories tests/test_stories.yml
+# ============================================================
+
+stories:
+
+  # ----------------------------------------------------------
+  # POZDRAV A NABÍDKA POMOCI
+  # ----------------------------------------------------------
+
+  - story: test_pozdrav_basic
+    steps:
+      - user: "Dobrý den"
+        intent: pozdrav
+      - action: utter_pozdrav
+      - action: utter_nabidka_pomoci
+
+  - story: test_pozdrav_neformalni
+    steps:
+      - user: "Ahoj"
+        intent: pozdrav
+      - action: utter_pozdrav
+      - action: utter_nabidka_pomoci
+
+  # ----------------------------------------------------------
+  # HLEDÁNÍ KNIHY – PODLE ŽÁNRU
+  # ----------------------------------------------------------
+
+  - story: test_hledam_knihu_sci_fi
+    steps:
+      - user: "Hledám nějaké sci-fi"
+        intent: hledam_knihu
+        entities:
+          - zanr: "sci-fi"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+
+  - story: test_hledam_knihu_detektivka
+    steps:
+      - user: "Máte nějakou detektivku?"
+        intent: hledam_knihu
+        entities:
+          - zanr: "detektivku"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+
+  - story: test_hledam_knihu_fantasy
+    steps:
+      - user: "Chci něco ve fantasy žánru"
+        intent: hledam_knihu
+        entities:
+          - zanr: "fantasy"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+
+  - story: test_hledam_knihu_bez_zanru
+    steps:
+      - user: "Co bys mi doporučil k čtení?"
+        intent: hledam_knihu
+      - action: kniha_form
+      - active_loop: kniha_form
+      - user: "Třeba sci-fi"
+        intent: hledam_knihu
+        entities:
+          - zanr: "sci-fi"
+      - action: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+
+  # ----------------------------------------------------------
+  # HLEDÁNÍ KNIHY – PODLE TYPU VAZBY
+  # ----------------------------------------------------------
+
+  - story: test_hledam_eknihu
+    steps:
+      - user: "Sháním e-knihu na večer"
+        intent: hledam_knihu
+        entities:
+          - typ_vazby: "e-knihu"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+
+  - story: test_hledam_audioknihu
+    steps:
+      - user: "Máte audioknihy do auta?"
+        intent: hledam_knihu
+        entities:
+          - typ_vazby: "audioknihu"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+
+  # ----------------------------------------------------------
+  # HLEDÁNÍ KNIHY – PODLE JAZYKA
+  # ----------------------------------------------------------
+
+  - story: test_hledam_knihu_anglicky
+    steps:
+      - user: "Máte něco anglicky?"
+        intent: hledam_knihu
+        entities:
+          - jazyk_knihy: "anglicky"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+
+  - story: test_hledam_knihu_cesky
+    steps:
+      - user: "Hledám čtení česky"
+        intent: hledam_knihu
+        entities:
+          - jazyk_knihy: "česky"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+
+  # ----------------------------------------------------------
+  # DOTAZ NA AUTORA
+  # ----------------------------------------------------------
+
+  - story: test_dotaz_na_autora_king
+    steps:
+      - user: "Máte něco od Stephena Kinga?"
+        intent: dotaz_na_autora
+        entities:
+          - autor: "Stephen King"
+      - action: utter_odpovez_autor
+
+  - story: test_dotaz_na_autora_bez_jmena
+    steps:
+      - user: "Kdo to napsal?"
+        intent: dotaz_na_autora
+      - action: utter_odpovez_autor
+
+  # ----------------------------------------------------------
+  # DOSTUPNOST
+  # ----------------------------------------------------------
+
+  - story: test_dostupnost_basic
+    steps:
+      - user: "Je tato kniha ještě skladem?"
+        intent: dostupnost
+      - action: utter_odpovez_dostupnost
+
+  - story: test_dostupnost_s_vydavatelstvim
+    steps:
+      - user: "Máte skladem tu edici od nakladatelství Argo?"
+        intent: dostupnost
+        entities:
+          - vydavatelstvo: "Argo"
+      - action: utter_odpovez_dostupnost
+
+  - story: test_dostupnost_doruceni
+    steps:
+      - user: "Jak dlouho trvá doručení?"
+        intent: dostupnost
+      - action: utter_odpovez_dostupnost
+
+  # ----------------------------------------------------------
+  # CENA
+  # ----------------------------------------------------------
+
+  - story: test_cena_basic
+    steps:
+      - user: "Kolik tahle knížka stojí?"
+        intent: cena
+      - action: utter_odpovez_cena
+
+  - story: test_cena_sleva
+    steps:
+      - user: "Je tenhle titul aktuálně ve slevě?"
+        intent: cena
+      - action: utter_odpovez_cena
+
+  # ----------------------------------------------------------
+  # ROZLOUČENÍ
+  # ----------------------------------------------------------
+
+  - story: test_rozlouceni_basic
+    steps:
+      - user: "Na shledanou"
+        intent: rozlouceni
+      - action: utter_rozlouceni
+
+  - story: test_rozlouceni_s_podekovani
+    steps:
+      - user: "Děkuji, na shledanou"
+        intent: rozlouceni
+      - action: utter_rozlouceni
+
+  # ----------------------------------------------------------
+  # FALLBACK
+  # ----------------------------------------------------------
+
+  - story: test_fallback_nesmysl
+    steps:
+      - user: "asdfghjkl"
+        intent: nlu_fallback
+      - action: utter_default
+
+  - story: test_fallback_pak_vybere_z_tlacitek
+    steps:
+      - user: "blabla nesmysl"
+        intent: nlu_fallback
+      - action: utter_default
+      - user: "/hledam_knihu"
+        intent: hledam_knihu
+      - action: kniha_form
+      - active_loop: kniha_form
+
+  # ----------------------------------------------------------
+  # SOUHLAS / NESOUHLAS
+  # ----------------------------------------------------------
+
+  - story: test_souhlas_po_doporuceni
+    steps:
+      - user: "Hledám detektivku"
+        intent: hledam_knihu
+        entities:
+          - zanr: "detektivku"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+      - user: "Ano, to zní dobře"
+        intent: souhlas
+      - action: utter_odpovez_cena
+
+  - story: test_nesouhlas_po_doporuceni
+    steps:
+      - user: "Chci nějaké sci-fi"
+        intent: hledam_knihu
+        entities:
+          - zanr: "sci-fi"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+      - user: "Ne, to nehledám"
+        intent: nesouhlas
+      - action: utter_rozumim_nevadi
+      - action: utter_nabidka_pomoci
+
+  # ----------------------------------------------------------
+  # KOMPLEXNÍ SCÉNÁŘE (celý průchod)
+  # ----------------------------------------------------------
+
+  - story: test_kompletni_navsteva_s_koupi
+    steps:
+      - user: "Dobrý den"
+        intent: pozdrav
+      - action: utter_pozdrav
+      - action: utter_nabidka_pomoci
+      - user: "Hledám sci-fi"
+        intent: hledam_knihu
+        entities:
+          - zanr: "sci-fi"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+      - user: "Ano"
+        intent: souhlas
+      - action: utter_odpovez_cena
+      - user: "Na shledanou"
+        intent: rozlouceni
+      - action: utter_rozlouceni
+
+  - story: test_kompletni_navsteva_zmena_zanru
+    steps:
+      - user: "Ahoj"
+        intent: pozdrav
+      - action: utter_pozdrav
+      - action: utter_nabidka_pomoci
+      - user: "Máte thrillery?"
+        intent: hledam_knihu
+        entities:
+          - zanr: "thriller"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+      - user: "Ne, moc ne"
+        intent: nesouhlas
+      - action: utter_rozumim_nevadi
+      - action: utter_nabidka_pomoci
+      - user: "Tak zkuste fantasy"
+        intent: hledam_knihu
+        entities:
+          - zanr: "fantasy"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+      - user: "Skvělé, kolik to stojí?"
+        intent: cena
+      - action: utter_odpovez_cena
+      - user: "Díky, nashle"
+        intent: rozlouceni
+      - action: utter_rozlouceni
+
+  - story: test_autor_dostupnost_cena
+    steps:
+      - user: "Máte knihy od Tolkiena?"
+        intent: dotaz_na_autora
+        entities:
+          - autor: "Tolkien"
+      - action: utter_odpovez_autor
+      - user: "Je to skladem?"
+        intent: dostupnost
+      - action: utter_odpovez_dostupnost
+      - user: "A kolik to stojí?"
+        intent: cena
+      - action: utter_odpovez_cena
+      - user: "Mějte se"
+        intent: rozlouceni
+      - action: utter_rozlouceni

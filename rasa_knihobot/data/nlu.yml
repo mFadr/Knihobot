@@ -1,0 +1,211 @@
+version: "3.1"
+
+nlu:
+  - intent: pozdrav
+    examples: |
+      - Ahoj
+      - Dobrý den
+      - Zdravím tě boti
+      - Čau
+      - Hezký den přeji
+      - Dobrý večer
+      - Nazdar
+      - Brý den
+      - Zdravíčko
+
+  - intent: rozlouceni
+    examples: |
+      - Na shledanou
+      - Mějte se
+      - Sbohem
+      - Tak zatím
+      - Dobrou noc
+      - Děkuji, na shledanou
+      - To je vše, díky
+      - Díky, nashle
+      - Díky a na shledanou
+      - Dík, sbohem
+
+  - intent: souhlas
+    examples: |
+      - ano
+      - jo
+      - jasně
+      - přesně tak
+      - určitě
+      - chci
+      - to by šlo
+      - souhlasím
+      - to mi sedí
+      - to by bylo fajn
+      - ano, přesně tohle hledám
+      - tak to vezmu
+
+  - intent: nesouhlas
+    examples: |
+      - ne
+      - kdepak
+      - nechci
+      - ani náhodou
+      - ne, díky
+      - to nehledám
+      - vůbec
+      - vůbec ne, tohle ne
+      - to mě nezaujalo
+      - ne, nic z toho
+
+  - intent: hledam_knihu
+    examples: |
+      - Hledám nějakou dobrou [detektivku](zanr).
+      - Chtěl bych si koupit [sci-fi](zanr).
+      - Máte nějaké knihy v žánru [fantasy](zanr)?
+      - Sháním [e-knihu](typ_vazby) na večer.
+      - Máte [audioknihy](typ_vazby) do auta?
+      - Chtěl bych knihu, která má [pevnou](typ_vazby) vazbu.
+      - Hledám čtení [česky](jazyk_knihy).
+      - Máte něco [anglicky](jazyk_knihy)?
+      - Potřebuji knížku [německy](jazyk_knihy).
+      - Co máš v nabídce?
+      - Ukaž mi nějaké knihy.
+      - Co bys mi doporučil k čtení?
+      - Rád bych nějaký [román](zanr).
+      - Ukaž mi [thrillery](zanr).
+      - Chci čistě [elektronickou knihu](typ_vazby).
+      - Máte něco ve [fantasy](zanr) žánru?
+      - Hledám dobrý [thriller](zanr) na víkend.
+      - Sháním [románek](zanr) na léto.
+      - Chci poslouchat [audioknihу](typ_vazby) při cestě autem.
+      - Máte [brožovanou](typ_vazby) verzi?
+      - Hledám knihu ve [francouzštině](jazyk_knihy).
+      - Máte tituly [slovensky](jazyk_knihy)?
+
+  - intent: dotaz_na_autora
+    examples: |
+      - Napsal to [Karel Čapek](autor)?
+      - Máte něco od [Stephena Kinga](autor)?
+      - Hledám knihy, které napsala [J.K. Rowlingová](autor).
+      - Kdo je autorem této knihy?
+      - Jaké další knihy napsal [Karel Čapek](autor)?
+      - Doporučte mi něco od autora jménem [Stephen King](autor).
+      - Chtěl bych si přečíst novou knihu, kterou vydala [J.K. Rowlingová](autor).
+      - Máte knihy od [Tolkiena](autor)?
+      - Čí je to dílo?
+      - Kdo to napsal?
+      - Najdi mi všechny tituly od [Jo Nesba](autor).
+      - Rád bych si koupil něco, co napsal [George R. R. Martin](autor).
+      - Od jakého autora to je?
+
+  - intent: dostupnost
+    examples: |
+      - Je tato kniha ještě skladem?
+      - Máte tuto knihu na pobočce?
+      - Kdy mi kniha dorazí, když ji objednám?
+      - Máte skladem tu edici od nakladatelství [Argo](vydavatelstvo)?
+      - Je dostupná ta knížka z vydavatelství [Host](vydavatelstvo)?
+      - Kdy naskladníte ten titul od [Paseka](vydavatelstvo)?
+      - Dá se to ještě normálně koupit?
+      - Kdy to bude k dispozici?
+      - Máte to fyzicky na prodejně?
+      - Jak dlouho trvá doručení?
+      - Kdy nejdřív si to můžu vyzvednout?
+      - Je vyprodaná, nebo ji ještě máte?
+      - Lze si tuto položku aktuálně objednat?
+
+  - intent: cena
+    examples: |
+      - Kolik tahle knížka stojí?
+      - Jaká je konečná cena této knihy?
+      - Je tenhle titul aktuálně ve slevě?
+      - Zajímá mě, jaká je cena.
+      - Kolik za ni celkem zaplatím?
+      - Máte v nabídce nějaké levné knihy?
+      - Za kolik to prodáváte?
+      - Jaká je cenovka?
+      - Můžete mi říct, jak to vychází cenově?
+      - Není to moc drahé?
+      - Do jaké částky se vejdu?
+      - Kolik korun si mám připravit?
+      - Je to teď v nějaké akci?
+
+  - synonym: detektivku
+    examples: |
+      - detektivka
+      - detektivky
+      - detektivek
+      - detektivce
+      - detektivkou
+      - detektivkám
+      - kriminálka
+      - kriminálku
+      - kriminálky
+
+  - synonym: sci-fi
+    examples: |
+      - scifi
+      - science fiction
+      - vědeckofantastická
+      - vědeckofantastický
+      - vědeckofantastické
+
+  - synonym: fantasy
+    examples: |
+      - fantazy
+      - fantasie
+      - fantazijní
+      - fantazijního
+      - fantastika
+      - fantastiku
+      - fantastiky
+
+  - synonym: thriller
+    examples: |
+      - thrillery
+      - thrilleru
+      - thrillerů
+      - thrillerem
+      - napínavá
+      - napínavý
+      - napínavé
+      - akční
+
+  - synonym: román
+    examples: |
+      - románu
+      - románem
+      - románů
+      - románek
+      - románku
+      - próza
+      - prózu
+      - beletrie
+      - beletrii
+
+  - synonym: audioknihu
+    examples: |
+      - audioknihу
+      - audioknihy
+      - audioknih
+      - audioknihou
+      - audioknihu
+      - mluvené slovo
+      - mluvenou knihu
+      - poslouchat knihu
+      - kniha na poslech
+
+  - synonym: Stephen King
+    examples: |
+      - Stephena Kinga
+      - Stephenem Kingem
+      - Kinga
+      - S. King
+
+  - synonym: e-knihu
+    examples: |
+      - elektronickou knihu
+      - e-knihy
+      - elektronická
+      - ebook
+      - e-book
+      - ebooků
+      - digitální knihu
+      - digitální knihy

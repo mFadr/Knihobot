@@ -1,0 +1,44 @@
+version: "3.1"
+
+rules:
+  - rule: Okamžitá odpověď na cenu
+    steps:
+      - intent: cena
+      - action: utter_odpovez_cena
+
+  - rule: Okamžitá odpověď na dostupnost
+    steps:
+      - intent: dostupnost
+      - action: utter_odpovez_dostupnost
+
+  - rule: Reakce na pozdrav kdykoliv
+    steps:
+      - intent: pozdrav
+      - action: utter_pozdrav
+      - action: utter_nabidka_pomoci
+
+  - rule: Reakce na nepochopení (Fallback)
+    steps:
+      - intent: nlu_fallback
+      - action: utter_default
+
+  - rule: Rozloučení kdykoliv
+    steps:
+      - intent: rozlouceni
+      - action: utter_rozlouceni
+
+  - rule: Spuštění formuláře pro hledání knihy
+    steps:
+      - intent: hledam_knihu
+      - action: kniha_form
+      - active_loop: kniha_form
+
+  - rule: Dokončení formuláře a doporučení
+    condition:
+      - active_loop: kniha_form
+    steps:
+      - action: kniha_form
+      - active_loop: null
+      - slot_was_set:
+        - requested_slot: null
+      - action: utter_doporuceni_knihy

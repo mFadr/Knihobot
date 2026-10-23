@@ -1,0 +1,106 @@
+version: "3.1"
+
+stories:
+  - story: Úspěšný nákup s doptáním na cenu a rozloučením
+    steps:
+      - intent: pozdrav
+      - action: utter_pozdrav
+      - action: utter_nabidka_pomoci
+      - intent: hledam_knihu
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+      - intent: souhlas
+      - action: utter_odpovez_cena
+      - intent: rozlouceni
+      - action: utter_rozlouceni
+
+  - story: Zákazník odmítne další pomoc
+    steps:
+      - intent: hledam_knihu
+        entities:
+          - zanr: "detektivku"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+      - intent: nesouhlas
+      - action: utter_rozumim_nevadi
+      - intent: rozlouceni
+      - action: utter_rozlouceni
+
+  - story: Přímý dotaz na autora a dostupnost
+    steps:
+      - intent: dotaz_na_autora
+      - action: utter_odpovez_autor
+      - intent: dostupnost
+      - action: utter_odpovez_dostupnost
+
+  - story: Rychlý dotaz na sklad a cenu
+    steps:
+      - intent: dostupnost
+      - action: utter_odpovez_dostupnost
+      - intent: cena
+      - action: utter_odpovez_cena
+
+  - story: Zákazník napsal nesmysl a pak si vybral z tlačítek
+    steps:
+      - intent: nlu_fallback
+      - action: utter_default
+
+  - story: Zákazník se ptá na autora a pak chce koupit
+    steps:
+      - intent: pozdrav
+      - action: utter_pozdrav
+      - action: utter_nabidka_pomoci
+      - intent: dotaz_na_autora
+        entities:
+          - autor: "Stephen King"
+      - action: utter_odpovez_autor
+      - intent: souhlas
+      - action: utter_odpovez_cena
+      - intent: rozlouceni
+      - action: utter_rozlouceni
+
+  - story: Zákazník hledá konkrétní typ vazby
+    steps:
+      - intent: hledam_knihu
+        entities:
+          - typ_vazby: "e-knihu"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+      - intent: dotaz_na_autora
+      - action: utter_odpovez_autor
+      - intent: cena
+      - action: utter_odpovez_cena
+
+  - story: Zákazník změní žánr po doporučení
+    steps:
+      - intent: hledam_knihu
+        entities:
+          - zanr: "sci-fi"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+      - intent: nesouhlas
+      - action: utter_rozumim_nevadi
+      - action: utter_nabidka_pomoci
+      - intent: hledam_knihu
+        entities:
+          - zanr: "detektivku"
+      - action: kniha_form
+      - active_loop: kniha_form
+      - active_loop: null
+      - action: utter_doporuceni_knihy
+      - intent: souhlas
+      - action: utter_odpovez_cena
+
+  - story: Nesouhlas mimo kontext - zákazník neví co chce
+    steps:
+      - intent: nesouhlas
+      - action: utter_rozumim_nevadi
+      - action: utter_nabidka_pomoci
